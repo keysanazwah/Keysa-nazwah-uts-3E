@@ -1,0 +1,223 @@
+
+:root {
+  --page:        #ece1d5;
+  --frame:       #f7f0e8;
+  --panel:       #fffcf8;
+  --item:        #f3e9de;
+  --muda:        #a07856;   
+  --tua:         #7b5a42;   
+  --teks:        #4a3628;
+  --teks-lembut: #7a6554;
+  --judul:       #5c4330;
+  --garis:       #d9c8b6;
+  --settings:    #f1dcb8;
+  --signout:     #fcc9a6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Jost", "Segoe UI", system-ui, sans-serif;
+  background: var(--page);
+  color: var(--teks);
+  padding: 24px;
+  min-height: 100vh;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ===== Frame ===== */
+.frame {
+  max-width: 1180px;
+  margin: 0 auto;
+  background: var(--frame);
+  border-radius: 14px;
+  padding: 18px 20px 22px;
+  box-shadow: 0 6px 24px rgba(92, 67, 48, .12);
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--judul);
+}
+.search input {
+  width: 300px;
+  max-width: 100%;
+  padding: 8px 14px;
+  font: 400 13px "Open Sans", system-ui, sans-serif;
+  color: var(--teks);
+  background: var(--panel);
+  border: 1px solid var(--garis);
+  border-radius: 8px;
+}
+.search input::placeholder { color: var(--teks-lembut); }
+.search input:focus { outline: 2px solid var(--tua); outline-offset: 1px; }
+
+/* ===== Grid layout (header / nav / main / aside / section1 / section2 / footer) ===== */
+.layout {
+  display: grid;
+  grid-template-columns: 200px 2.1fr 1fr 1.5fr;
+  grid-template-areas:
+    "nav main  main     main"
+    "nav aside progres  aktifitas"
+    "nav foot  foot     foot";
+  gap: 12px;
+}
+.nav            { grid-area: nav; }
+.banner         { grid-area: main; }
+.panel-statistik{ grid-area: aside; }
+.panel-progres  { grid-area: progres; }
+.panel-aktifitas{ grid-area: aktifitas; }
+.panel-dokumen  { grid-area: foot; }
+
+/* ===== Nav ===== */
+.nav {
+  background: var(--muda);
+  border-radius: 8px;
+  padding: 34px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.nav a {
+  display: block;
+  padding: 12px 24px 12px 56px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color .2s ease;
+}
+.nav a:hover        { background: rgba(123, 90, 66, .45); }
+.nav a.active       { background: var(--tua); }
+.nav a:focus-visible{ outline: 2px solid #fff; outline-offset: -3px; }
+.nav a.settings     { color: var(--settings); }
+.nav a.signout      { color: var(--signout); }
+
+/* ===== Banner ===== */
+.banner {
+  background: var(--muda);
+  color: #fff;
+  border-radius: 8px;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.banner h2 {
+  font: 700 24px/1.25 "Open Sans", system-ui, sans-serif;
+  margin-bottom: 10px;
+}
+.banner p {
+  font: 400 13px/1.5 "Open Sans", system-ui, sans-serif;
+  max-width: 440px;
+  color: #fbf3ea;
+}
+.avatar {
+  width: 68px;
+  height: 68px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px #c9a98a;
+  background: #fff;
+}
+
+/* ===== Panel umum ===== */
+.panel {
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 14px;
+  box-shadow: 0 2px 10px rgba(92, 67, 48, .08);
+  transition: background-color .25s ease, box-shadow .25s ease;
+}
+.panel h3 {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: var(--teks);
+}
+.panel-statistik { padding: 0; overflow: hidden; display: flex; }
+.panel-statistik img { display: block; width: 100%; height: auto; }
+
+/* Panel yang sedang dipilih dari menu: sedikit lebih tua */
+.panel.is-focus {
+  background: #ead9c6;
+  box-shadow: 0 0 0 2px rgba(123, 90, 66, .45), 0 2px 10px rgba(92, 67, 48, .1);
+}
+.panel.is-focus .item { background: #f5ebe0; }
+
+/* ===== Item daftar ===== */
+.item {
+  background: var(--item);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.item:last-child { margin-bottom: 0; }
+.item strong { font-weight: 700; }
+.item .sub   { color: var(--tua); font-weight: 600; font-size: 12.5px; }
+.item[hidden]{ display: none; }
+
+.item.row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+}
+.lihat {
+  flex: none;
+  color: var(--tua);
+  font-weight: 700;
+  text-decoration: underline;
+}
+.lihat:hover { color: var(--teks); }
+
+/* ===== Responsif ===== */
+@media (max-width: 960px) {
+  body { padding: 12px; }
+  .layout {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "nav     nav"
+      "main    main"
+      "aside   aside"
+      "progres aktifitas"
+      "foot    foot";
+  }
+  .nav { flex-direction: row; flex-wrap: wrap; padding: 8px; gap: 2px; }
+  .nav a { padding: 10px 14px; border-radius: 6px; }
+}
+@media (max-width: 600px) {
+  .header { flex-direction: column; align-items: stretch; }
+  .search input { width: 100%; }
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "nav" "main" "aside" "progres" "aktifitas" "foot";
+  }
+  .banner { flex-direction: column-reverse; align-items: flex-start; }
+  .item.row { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
